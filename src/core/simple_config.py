@@ -39,6 +39,8 @@ class Config:
         self.mcp_host = server.get('host', '0.0.0.0')
         self.mcp_port = server.get('port', 8000)
         self.enable_cors = server.get('enable_cors', True)
+        self.host_ip = server.get('host_ip', 'localhost')
+        self.cors_allowed_origins = server.get('cors_allowed_origins', ['*'])
 
         # Paths settings
         paths = config.get('paths', {})
@@ -184,6 +186,17 @@ class Config:
             self.mcp_host = os.getenv("MCP_HOST")
         if os.getenv("MCP_PORT"):
             self.mcp_port = int(os.getenv("MCP_PORT"))
+        
+        # Host IP and CORS settings
+        if os.getenv("HOST_IP"):
+            self.host_ip = os.getenv("HOST_IP")
+        if os.getenv("CORS_ALLOWED_ORIGINS"):
+            # Parse comma-separated origins
+            origins = os.getenv("CORS_ALLOWED_ORIGINS")
+            if origins == "*":
+                self.cors_allowed_origins = ["*"]
+            else:
+                self.cors_allowed_origins = [origin.strip() for origin in origins.split(",")]
 
         # Monitoring settings
         if os.getenv("MONITORING_INTERVAL_SECONDS"):

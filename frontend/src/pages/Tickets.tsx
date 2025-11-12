@@ -5,6 +5,7 @@ import TicketSearch from '@/components/tickets/TicketSearch';
 import TicketStats from '@/components/tickets/TicketStats';
 import TicketGraph from '@/components/tickets/TicketGraph';
 import PendingReviewIndicator from '@/components/tickets/PendingReviewIndicator';
+import { getApiUrl } from '@/lib/api-config';
 
 const Tickets: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'kanban' | 'search' | 'stats' | 'graph'>('kanban');
@@ -17,7 +18,7 @@ const Tickets: React.FC = () => {
     const fetchWorkflow = async () => {
       try {
         // Fetch workflows and use the first active one
-        const response = await fetch('http://localhost:8000/api/workflows', {
+        const response = await fetch(getApiUrl('/api/workflows'), {
           headers: {
             'X-Agent-ID': 'ui-user',
           },

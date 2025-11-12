@@ -44,9 +44,13 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
 
   useEffect(() => {
     const connectWebSocket = () => {
-      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsHost = window.location.hostname;
-      const websocket = new WebSocket(`${wsProtocol}//${wsHost}:8000/ws`);
+      // Get backend host configuration from environment variables
+      const apiHost = import.meta.env.VITE_API_HOST || window.location.hostname;
+      const apiPort = import.meta.env.VITE_API_PORT || '8000';
+      const apiProtocol = import.meta.env.VITE_API_PROTOCOL || (window.location.protocol === 'https:' ? 'https' : 'http');
+      
+      const wsProtocol = apiProtocol === 'https' ? 'wss:' : 'ws:';
+      const websocket = new WebSocket(`${wsProtocol}//${apiHost}:${apiPort}/ws`);
 
       websocket.onopen = () => {
         setIsConnected(true);

@@ -44,9 +44,11 @@ app = FastAPI(
 # Add CORS middleware
 config = get_config()
 if config.enable_cors:
+    # Use configured allowed origins from environment/config
+    allowed_origins = config.cors_allowed_origins
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=allowed_origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -4034,16 +4036,18 @@ async def health_check():
 @app.get("/.well-known/oauth-authorization-server")
 async def oauth_server_metadata():
     """OAuth server metadata with DCR support."""
+    config = get_config()
+    base_url = f"http://{config.host_ip}:{config.mcp_port}"
     return {
-        "issuer": "http://localhost:8000",
-        "authorization_endpoint": "http://localhost:8000/oauth/authorize",
-        "token_endpoint": "http://localhost:8000/oauth/token",
-        "registration_endpoint": "http://localhost:8000/oauth/register",  # DCR endpoint
+        "issuer": base_url,
+        "authorization_endpoint": f"{base_url}/oauth/authorize",
+        "token_endpoint": f"{base_url}/oauth/token",
+        "registration_endpoint": f"{base_url}/oauth/register",  # DCR endpoint
         "response_types_supported": ["code"],
         "grant_types_supported": ["authorization_code", "refresh_token"],
         "code_challenge_methods_supported": ["S256"],  # PKCE support
         "token_endpoint_auth_methods_supported": ["none"],
-        "revocation_endpoint": "http://localhost:8000/oauth/revoke",
+        "revocation_endpoint": f"{base_url}/oauth/revoke",
         "scopes_supported": ["openid", "profile", "email"],
     }
 
@@ -4051,11 +4055,13 @@ async def oauth_server_metadata():
 @app.get("/.well-known/openid-configuration")
 async def openid_config():
     """OpenID configuration - tells Claude no auth needed."""
+    config = get_config()
+    base_url = f"http://{config.host_ip}:{config.mcp_port}"
     return {
-        "issuer": "http://localhost:8000",
-        "authorization_endpoint": "http://localhost:8000/authorize",
-        "token_endpoint": "http://localhost:8000/token",
-        "userinfo_endpoint": "http://localhost:8000/userinfo",
+        "issuer": base_url,
+        "authorization_endpoint": f"{base_url}/authorize",
+        "token_endpoint": f"{base_url}/token",
+        "userinfo_endpoint": f"{base_url}/userinfo",
         "response_types_supported": ["none"],
         "grant_types_supported": ["none"],
         "subject_types_supported": ["public"],

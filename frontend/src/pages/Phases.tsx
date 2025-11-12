@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useSocket } from '@/hooks/useSocket';
+import { getApiUrl } from '@/lib/api-config';
 
 interface Phase {
   id: string;
@@ -50,7 +51,7 @@ export default function Phases() {
 
   const fetchWorkflow = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/workflow');
+      const response = await fetch(getApiUrl('/api/workflow'));
       const data = await response.json();
       setWorkflow(data);
     } catch (error) {
@@ -96,7 +97,7 @@ export default function Phases() {
 
     setLoadingPhase(prev => ({ ...prev, [phaseId]: true }));
     try {
-      const response = await fetch(`http://localhost:8000/api/phases/${phaseId}/yaml`);
+      const response = await fetch(getApiUrl(`/api/phases/${phaseId}/yaml`));
       const data = await response.json();
       setPhaseData(prev => ({ ...prev, [phaseId]: data }));
     } catch (error) {
