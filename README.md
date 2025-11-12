@@ -244,10 +244,24 @@ The guide walks you through:
 
 ## 🤝 Getting Help
 
-- 📖 **[Documentation](https://ido-levi.github.io/Hephaestus/)** - Complete guides, API reference, and tutorials
-- 💬 **[GitHub Discussions](https://github.com/Ido-Levi/Hephaestus/discussions)** - Ask questions and share ideas
-- 🐛 **[Issue Tracker](https://github.com/Ido-Levi/Hephaestus/issues)** - Report bugs and request features
-- 📧 **Email** - Reach out for support or collaboration
+### 📚 Documentation
+- **[Quick Start Guide](https://ido-levi.github.io/Hephaestus/docs/getting-started/quick-start)** - Get up and running in 10 minutes
+- **[Complete Documentation](https://ido-levi.github.io/Hephaestus/)** - Guides, API reference, and tutorials
+- **[Troubleshooting Guide](https://ido-levi.github.io/Hephaestus/docs/troubleshooting/common-errors)** - Common errors and solutions
+- **[Best Practices](https://ido-levi.github.io/Hephaestus/docs/guides/best-practices)** - Workflow design patterns
+
+### 🔧 Support Channels
+- 💬 **[Discord Community](https://discord.gg/FyrC4fpS)** - Quick help from the community
+- 🐛 **[GitHub Discussions](https://github.com/Ido-Levi/Hephaestus/discussions)** - Ask questions and share ideas
+- 📋 **[Issue Tracker](https://github.com/Ido-Levi/Hephaestus/issues)** - Report bugs and request features
+
+### 🆘 Common Issues
+- **Setup validation:** Run `python check_setup_macos.py` to verify your installation
+- **Agent not spawning:** Check `logs/backend.log` and ensure tmux is installed
+- **API key errors:** Verify `.env` file exists and contains valid keys
+- **Database issues:** Run `python scripts/init_db.py` to reinitialize
+
+See the **[full troubleshooting guide](https://ido-levi.github.io/Hephaestus/docs/troubleshooting/common-errors)** for detailed solutions.
 
 ---
 

@@ -65,5 +65,11 @@ site/
 qdrant_data/
 .playwright-mcp/
 frontend/node_modules/
+
+# Workflow Results & Benchmarks
+swebench_results/
+workflow_results/
+benchmark_results/
+
 # Tmux
 .tmux/

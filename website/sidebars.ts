@@ -29,6 +29,7 @@ const sidebars: SidebarsConfig = {
       label: '🔧 Troubleshooting',
       collapsed: false,
       items: [
+        'troubleshooting/common-errors',
         'troubleshooting/agent-issues',
       ],
     },
